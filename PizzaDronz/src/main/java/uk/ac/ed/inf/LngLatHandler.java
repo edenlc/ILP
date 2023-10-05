@@ -4,6 +4,7 @@ import uk.ac.ed.inf.ilp.data.NamedRegion;
 import uk.ac.ed.inf.ilp.interfaces.LngLatHandling;
 
 import java.lang.Math;
+import java.util.Arrays;
 
 public class LngLatHandler implements LngLatHandling{
     @Override
@@ -38,11 +39,25 @@ public class LngLatHandler implements LngLatHandling{
         if (angle == 999) {
             nextPos = startPosition;
         }
+        else if (Arrays.stream(validAngles).anyMatch(elem -> elem == angle)){
+            nextPos = calcNewPos(startPosition, angle);
+        }
+        else {
+            
+        }
+
+
+        /**
+        else {
+            for (int i = 0; i < 360; i += 22.5){
+                if angle == i
+            }
+        }
         else if (angle == 0.0){
-            nextPos = new LngLat(startPosition.lng() + 0.00015, startPosition.lat());
+            nextPos = calcNewPos(startPosition, angle);
         }
         else if (angle == 22.5){
-            nextPos = new LngLat(0, Math.cos(Math.toRadians(angle))*)
+            nextPos = calcNewPos(startPosition, angle);
         }
         else if (angle == 45) {
         }
@@ -74,7 +89,14 @@ public class LngLatHandler implements LngLatHandling{
         }
         else {
         }
+         **/
         return nextPos;
+    }
+
+    private LngLat calcNewPos(LngLat startPos, double angle){
+        LngLat newPos;
+        newPos = new LngLat(Math.sin(Math.toRadians(angle) * 0.00015), Math.cos(Math.toRadians(angle)) * 0.00015);
+        return newPos;
     }
 
 
