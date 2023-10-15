@@ -1,4 +1,4 @@
-package uk.ac.ed.inf;
+package constant2;
 
 public enum OrientationCode {
     CLOCKWISE,
