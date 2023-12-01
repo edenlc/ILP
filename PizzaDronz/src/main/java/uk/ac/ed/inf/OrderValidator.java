@@ -166,7 +166,7 @@ public class OrderValidator implements uk.ac.ed.inf.ilp.interfaces.OrderValidati
         int count = 0;
         for (int n = 0; n < orderToValidate.getPizzasInOrder().length; n++){
             for (int m = 0; m < restaurant.menu().length; m++){
-                if (orderToValidate.getPizzasInOrder()[n] == restaurant.menu()[m]){
+                if (orderToValidate.getPizzasInOrder()[n].name().equals(restaurant.menu()[m].name())){
                     count++;
                 }
             }
@@ -210,11 +210,11 @@ public class OrderValidator implements uk.ac.ed.inf.ilp.interfaces.OrderValidati
             if (restaurant == null){
                 return true;
             }
-            if (Arrays.stream(restaurant.menu()).anyMatch(order ->
-                    Arrays.stream(orderToValidate.getPizzasInOrder()).anyMatch(checkrestaurant -> order == checkrestaurant))) {
+            if (Arrays.stream(restaurant.menu()).anyMatch(order -> Arrays.stream(orderToValidate.getPizzasInOrder()).anyMatch(checkrestaurant -> order.name().equals(checkrestaurant.name())))) {
                 count += 1;
             }
         }
+        System.out.println(count);
         if (count != 1){
             return true;
         }
@@ -254,22 +254,29 @@ public class OrderValidator implements uk.ac.ed.inf.ilp.interfaces.OrderValidati
      * @param orderToValidate Order from which the pizza is in
      * @param definedRestaurants an array of all restaurants
      * @return  the restaurant from which the first pizza in the order is from.
+     * Public so that can get the restaurant for the order in main
      */
-    private Restaurant findRestaurant(Order orderToValidate, Restaurant[] definedRestaurants){
+    public Restaurant findRestaurant(Order orderToValidate, Restaurant[] definedRestaurants){
         Restaurant restaurant = null;
+        System.out.println("finding restuarant");
 
         if (definedRestaurants == null || orderToValidate.getPizzasInOrder() == null){
+            System.out.println("null");
             return null;
         }
         for (int i = 0; i < definedRestaurants.length; i++){
             if (definedRestaurants[i] == null){
+                System.out.println("No defined restaurants");
                 return null;
             }
+            if (definedRestaurants[i].menu() == null){
+                System.out.println("no menu");
+                return null;
+            }
+            //System.out.println("Length =  " + definedRestaurants[i].menu().length);
             for (int j = 0; j < definedRestaurants[i].menu().length; j++){
-                if (definedRestaurants[i].menu() == null){
-                    return null;
-                }
-                if (orderToValidate.getPizzasInOrder()[0] == definedRestaurants[i].menu()[j]){
+                if (orderToValidate.getPizzasInOrder()[0].name().equals(definedRestaurants[i].menu()[j].name())){
+                    System.out.println("Found the restuarant");
                     restaurant = definedRestaurants[i];
                 }
             }
