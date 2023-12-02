@@ -42,7 +42,8 @@ public class OutPutDeliveries {
             objectMapper.writeValue(outputFile, exportOrders);
 
         } catch (IOException e){
-            e.printStackTrace();
+            System.err.println("Failed to create outputfile.");
+            System.exit(0);
         }
 
 

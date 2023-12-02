@@ -138,7 +138,6 @@ public class LngLatHandler implements LngLatHandling {
         LngLat point2 = new LngLat(point.lng(), pointLat);
         /** isCloseTo() accounts for distance tolerance **/
         return isCloseTo(point, point2);
-        //return (pointLat <= (point.lat() + (1E-12)) && pointLat >= (point.lat() - (1E-12)));
     }
 
 

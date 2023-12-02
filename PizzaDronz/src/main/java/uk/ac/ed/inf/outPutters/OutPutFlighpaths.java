@@ -35,7 +35,8 @@ public class OutPutFlighpaths {
             objectMapper.writeValue(outputFile, moves);
 
         } catch (IOException e){
-            e.printStackTrace();
+            System.err.println("Failed to create outputfile.");
+            System.exit(0);
         }
 
 

@@ -13,10 +13,6 @@ public class AStarMazeSolver {
     private static final double[] DIRS = {0.0, 22.5, 45.0, 67.5, 90.0, 112.5, 135.0, 157.5,
                                           180.0, 202.5, 225.0, 247.5, 270.0, 292.5, 315.0, 337.5};
 
-    //private static final double[] DIRS = {0.0, 45.0, 90.0, 135.0, 180.0, 225.0, 270.0, 315.0};
-    //private static final double[] DIRS = {0.0, 90.0, 180.0, 270.0};
-
-
     // global defined variables for the search
     static PriorityQueue<Cell> openSet;     // frontier
     static HashSet<Cell> closedSet;         // visited
@@ -34,7 +30,7 @@ public class AStarMazeSolver {
      * @param noFlyZones Array of noFlyZones
      * @return t/f whether or not a path was found
      */
-    public static boolean findShortestPath(Cell start, Cell goal, NamedRegion centralArea,
+    private static boolean findShortestPath(Cell start, Cell goal, NamedRegion centralArea,
                                            NamedRegion[] noFlyZones) {
 
         boolean leftCentralArea = false; //Used to remember whether drone has left central area for this set of moves - cant reeenter
@@ -111,23 +107,17 @@ public class AStarMazeSolver {
                         neighbor.f = neighbor.g + neighbor.h;
 
                         tempSet.add(neighbor);
-                        //openSet.add(neighbor);
                     }
                 }
             }
 
             if (!tempSet.isEmpty()){
-                //add the best n nodes to the frontier
-                //Takes far too long with this implementation so as of now just adding the best node.
-                //System.out.print("Adding node");
+                //add the best 3 nodes to the frontier
                 for (int i = 0; i < 3; i++) {
                     if (tempSet.size() > 0){
                         Cell node = tempSet.poll();
                         if (node != null) {
-                            //openSet.add(tempSet.poll());
                             openSet.add(node);
-                            //System.out.println(openSet.size());
-                            //System.out.println(tempSet.size());
                         }
                     }
                 }
@@ -144,7 +134,7 @@ public class AStarMazeSolver {
      * @param zones array of noFlyZones as NamedRegion objs
      * @return t/f
      */
-    public static boolean checkInNoFlyZone(LngLat position, NamedRegion[] zones){
+    private static boolean checkInNoFlyZone(LngLat position, NamedRegion[] zones){
         LngLatHandler noFlyHandler = new LngLatHandler();;
         for (NamedRegion namedRegion : zones){
             if (noFlyHandler.isInRegion(position, namedRegion)){
@@ -162,7 +152,7 @@ public class AStarMazeSolver {
      * @param zones all noflyzones
      * @return t/f
      */
-    public static boolean checkLineInNoFly(LngLat p1, double angle, NamedRegion[] zones){
+    private static boolean checkLineInNoFly(LngLat p1, double angle, NamedRegion[] zones){
         double distance = 0.000015;
 
         for (int i = 1; i <= 10; i++){
@@ -273,12 +263,25 @@ public class AStarMazeSolver {
                 moves.add(new Move(path.get(i).postition, path.get(i + 1).angle, path.get(i + 1).postition));
             }
             //Reverses for route back
-            List<Move> movesReversed = new ArrayList<>(moves);
+            List<Move> movesReversed = new ArrayList<>();
+            //reverse start and end lats for each, get opposite angle
+            for (Move move : moves){
+                LngLat startPos = new LngLat(move.getEndLng(), move.getEndLat());
+                LngLat endPos = new LngLat(move.getStartLng(), move.getStartLat());
+                double angle = (move.getAngle() + 180) % 360;
+
+                Move newMove = new Move(startPos, angle, endPos);
+                movesReversed.add(newMove);
+
+            }
             Collections.reverse(movesReversed);
+
+
+            LngLat closetogoal = new LngLat(movesReversed.get(0).getStartLng(), movesReversed.get(0).getStartLat());
 
             //go from appleton to restaurant, hover at restaurant, go back to appleton with same path, hover at appleton
             fullpath.addAll(moves);
-            fullpath.add(new Move(goal.postition, 999, goal.postition));
+            fullpath.add(new Move(closetogoal, 999, closetogoal));
             fullpath.addAll(movesReversed);
             fullpath.add(new Move(start.postition, 999, start.postition));
 

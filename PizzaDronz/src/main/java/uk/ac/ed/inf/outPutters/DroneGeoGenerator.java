@@ -41,7 +41,7 @@ public class DroneGeoGenerator {
             moveArray.add(initialPoint);
         }
         catch(ArrayIndexOutOfBoundsException e){
-            System.out.println("No moves were generated, likely no orders for this date!");
+            System.err.println("No moves were generated, likely no orders for this date!");
         }
         finally {
 
@@ -80,7 +80,8 @@ public class DroneGeoGenerator {
                 objectMapper.writeValue(outputFile, featureCollection);
 
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println("Failed to create outputfile.");
+                System.exit(0);
             }
         }
 

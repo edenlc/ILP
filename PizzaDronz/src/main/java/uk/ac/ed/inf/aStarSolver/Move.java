@@ -28,6 +28,9 @@ public class Move {
             return "";
         }
     }
+
+
+
     public double getStartLng(){
         return startLng;
     }

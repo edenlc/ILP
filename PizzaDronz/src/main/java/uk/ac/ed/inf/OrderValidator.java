@@ -136,9 +136,7 @@ public class OrderValidator implements uk.ac.ed.inf.ilp.interfaces.OrderValidati
         for (int i = 0; i < orderToValidate.getPizzasInOrder().length; i++){
             if (!(orderToValidate.getPizzasInOrder()[i] == null)){
                 total += orderToValidate.getPizzasInOrder()[i].priceInPence();
-                //return true;
             }
-            //total += orderToValidate.getPizzasInOrder()[i].priceInPence();
         }
 
         if (total != orderToValidate.getPriceTotalInPence()){
@@ -271,7 +269,6 @@ public class OrderValidator implements uk.ac.ed.inf.ilp.interfaces.OrderValidati
                 System.out.println("no menu");
                 return null;
             }
-            //System.out.println("Length =  " + definedRestaurants[i].menu().length);
             for (int j = 0; j < definedRestaurants[i].menu().length; j++){
                 if (orderToValidate.getPizzasInOrder()[0].name().equals(definedRestaurants[i].menu()[j].name())){
                     restaurant = definedRestaurants[i];
