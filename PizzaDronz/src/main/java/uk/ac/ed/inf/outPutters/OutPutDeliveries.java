@@ -14,7 +14,7 @@ public class OutPutDeliveries {
         try {
             //Create resultsfiles in parent directory of project
             String currentDirectoryPath = System.getProperty("user.dir");
-            File currentDirectory = new File(currentDirectoryPath).getParentFile();
+            File currentDirectory = new File(currentDirectoryPath);
             File resultsFilesDirectory = new File(currentDirectory, "resultsFiles");
 
             if (!resultsFilesDirectory.exists()) {

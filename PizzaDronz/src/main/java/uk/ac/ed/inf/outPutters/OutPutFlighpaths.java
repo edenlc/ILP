@@ -13,7 +13,7 @@ public class OutPutFlighpaths {
 
             //Create resultsfiles folder in parent directory of the project
             String currentDirectoryPath = System.getProperty("user.dir");
-            File currentDirectory = new File(currentDirectoryPath).getParentFile();
+            File currentDirectory = new File(currentDirectoryPath);
             File resultsFilesDirectory = new File(currentDirectory, "resultsFiles");
 
             if (!resultsFilesDirectory.exists()) {

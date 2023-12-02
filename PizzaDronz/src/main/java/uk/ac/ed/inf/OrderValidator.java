@@ -214,7 +214,6 @@ public class OrderValidator implements uk.ac.ed.inf.ilp.interfaces.OrderValidati
                 count += 1;
             }
         }
-        System.out.println(count);
         if (count != 1){
             return true;
         }
@@ -258,7 +257,6 @@ public class OrderValidator implements uk.ac.ed.inf.ilp.interfaces.OrderValidati
      */
     public Restaurant findRestaurant(Order orderToValidate, Restaurant[] definedRestaurants){
         Restaurant restaurant = null;
-        System.out.println("finding restuarant");
 
         if (definedRestaurants == null || orderToValidate.getPizzasInOrder() == null){
             System.out.println("null");
@@ -276,7 +274,6 @@ public class OrderValidator implements uk.ac.ed.inf.ilp.interfaces.OrderValidati
             //System.out.println("Length =  " + definedRestaurants[i].menu().length);
             for (int j = 0; j < definedRestaurants[i].menu().length; j++){
                 if (orderToValidate.getPizzasInOrder()[0].name().equals(definedRestaurants[i].menu()[j].name())){
-                    System.out.println("Found the restuarant");
                     restaurant = definedRestaurants[i];
                 }
             }

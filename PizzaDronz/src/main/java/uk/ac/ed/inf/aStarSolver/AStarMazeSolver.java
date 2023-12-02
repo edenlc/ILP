@@ -255,7 +255,6 @@ public class AStarMazeSolver {
         if(findShortestPath(start, goal, centralArea, noflyzones)){
             System.out.println("Path count: " + path.size());
             System.out.println("Searched squares count: " + closedSet.size());
-            System.out.println("Path: ");
             pathfound = true;
         }
         else{
