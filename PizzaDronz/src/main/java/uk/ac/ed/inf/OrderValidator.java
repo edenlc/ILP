@@ -224,7 +224,7 @@ public class OrderValidator implements uk.ac.ed.inf.ilp.interfaces.OrderValidati
     }
 
     /**
-     * Checks that the restaurant is not closed
+     * Checks that the restaurant is not closed on the date of the order
      * @param orderToValidate the order to validate
      * @param definedRestaurants the array of all restaurants
      * @return True if closed

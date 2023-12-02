@@ -1,6 +1,5 @@
 package uk.ac.ed.inf;
 
-import org.junit.Assert;
 import org.junit.Test;
 import uk.ac.ed.inf.ilp.data.LngLat;
 
